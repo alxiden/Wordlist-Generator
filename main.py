@@ -19,7 +19,6 @@ class WordlistGenerator:
         replaced_words = []
         for letter, symbol in self.replacements.items():
             if letter in word or letter.upper() in word:
-                # Replace only the first occurrence of the letter
                 replaced_word = word.replace(letter, symbol).replace(letter.upper(), symbol)
                 replaced_words.append(replaced_word)
         return replaced_words
