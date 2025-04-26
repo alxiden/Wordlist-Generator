@@ -43,6 +43,7 @@ class WordlistGenerator:
 
     def generate_wordlist(self):
         combinations = []
+        # Generate combinations of words and numbers
         for word, number in itertools.product(self.words, self.numbers):
             variations = [
                 f"{word.capitalize()}{number}",
@@ -74,6 +75,21 @@ class WordlistGenerator:
             for variation in variations:
                 combinations.extend(self.apply_replacements(variation)) 
 
+        # Generate combinations of two words capitalized
+        for word1, word2 in itertools.permutations(self.words, 2):
+            combined_variation = f"{word1.capitalize()}{word2.capitalize()}"
+            combinations.append(combined_variation)
+            combinations.extend(self.apply_replacements(combined_variation))
+
+            # Add numbers to the end of the combined words
+            for number in self.numbers:
+                combined_with_number = f"{combined_variation}{number}"
+                combinations.append(combined_with_number)
+                combinations.extend(self.apply_replacements(combined_with_number))
+
+
+
+        # Write all combinations to the output file
         with open(self.output_file, "w", encoding="utf-8") as file:
             file.write("\n".join(combinations))
     
